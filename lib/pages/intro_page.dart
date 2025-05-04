@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:triease_app/pages/home_page.dart';
+import 'package:triease_app/pages/welcomescreen.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});
@@ -63,7 +63,7 @@ class IntroPageState extends State<IntroPage> {
                 onTap:
                     () => Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
+                      MaterialPageRoute(builder: (context) => WelcomeScreen()),
                     ),
                 child: Container(
                   decoration: BoxDecoration(

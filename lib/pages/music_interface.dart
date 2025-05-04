@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:triease_app/pages/music_player_page.dart';
+import 'package:triease_app/pages/playlists_page.dart'; // Import the PlaylistsPage
 
 class MusicPage extends StatelessWidget {
   MusicPage({super.key});
@@ -59,8 +60,6 @@ class MusicPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(height: 110),
-
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
@@ -68,13 +67,33 @@ class MusicPage extends StatelessWidget {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
-                    'See all',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Color.fromARGB(255, 22, 9, 143),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PlaylistsPage(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12.0,
+                      vertical: 6.0,
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: const Color.fromARGB(255, 22, 9, 143),
+                        width: 1.5,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: const Text(
+                      'See all',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Color.fromARGB(255, 22, 9, 143),
+                      ),
                     ),
                   ),
                 ),

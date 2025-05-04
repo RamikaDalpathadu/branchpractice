@@ -1,4 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:firebase_database/firebase_database.dart';
+
+// Firebase Realtime Database reference
+final databaseRef = FirebaseDatabase.instance.ref();
+
+// Function to toggle the motor ON/OFF
+void toggleMotor(bool isOn) {
+  databaseRef.child("motor").set({"status": isOn ? "ON" : "OFF"});
+}
 
 class IntensityPage extends StatelessWidget {
   const IntensityPage({super.key});
@@ -63,7 +73,7 @@ class IntensityPage extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 children: [
                   // First box: Larger and lighter in color
-                  _buildSquareItem(
+                  _buildNonInteractiveSquareItem(
                     'Adjust the vibration intensity to your comfort. Slide to control the strength for a personalized relaxation experience',
                     width: 300, // Larger width
                     height: 100, // Larger height
@@ -73,17 +83,57 @@ class IntensityPage extends StatelessWidget {
 
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: _buildSquareItem('Low', width: 120),
+                    child: _buildSquareItem(context, 'Low', width: 120),
                   ),
                   const SizedBox(height: 20.0),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: _buildSquareItem('Medium', width: 120),
+                    child: _buildSquareItem(context, 'Medium', width: 120),
                   ),
                   const SizedBox(height: 20.0),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: _buildSquareItem('High', width: 120),
+                    child: _buildSquareItem(context, 'High', width: 120),
+                  ),
+                  const SizedBox(height: 40.0),
+
+                  // Add the ON/OFF buttons
+                  Center(
+                    child: Column(
+                      children: [
+                        ElevatedButton(
+                          onPressed:
+                              () => toggleMotor(true), // Turn ON the motor
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 30,
+                              vertical: 15,
+                            ),
+                          ),
+                          child: const Text(
+                            "Turn ON Motor",
+                            style: TextStyle(fontSize: 16, color: Colors.white),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed:
+                              () => toggleMotor(false), // Turn OFF the motor
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 30,
+                              vertical: 15,
+                            ),
+                          ),
+                          child: const Text(
+                            "Turn OFF Motor",
+                            style: TextStyle(fontSize: 16, color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -124,36 +174,80 @@ class IntensityPage extends StatelessWidget {
     );
   }
 
-  // Helper method to build a square item
-  Widget _buildSquareItem(
+  // Helper method to build a non-interactive square item
+  Widget _buildNonInteractiveSquareItem(
     String title, {
     double width = 80,
     double height = 60,
     Color color = const Color.fromARGB(214, 126, 231, 214),
   }) {
     return Container(
-      width: width, // Customizable width
-      height: height, // Customizable height
+      width: width,
+      height: height,
       decoration: BoxDecoration(
-        color: color, // Customizable color
+        color: color,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 5,
-            offset: const Offset(0, 2),
-          ),
-        ],
       ),
       child: Center(
         child: Text(
           title,
-          style: const TextStyle(
-            fontSize: 16, // Adjusted font size to fit smaller squares
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
           textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 14, color: Colors.black),
+        ),
+      ),
+    );
+  }
+
+  // Helper method to build an interactive square item
+  Widget _buildSquareItem(
+    BuildContext context,
+    String title, {
+    double width = 80,
+    double height = 60,
+    Color color = const Color.fromARGB(214, 126, 231, 214),
+  }) {
+    return GestureDetector(
+      onTap: () async {
+        if (title == 'Low') {
+          // Send a request to the hardware device to turn on low vibration
+          final response = await http.get(Uri.parse('http://<DEVICE_IP>/low'));
+          if (response.statusCode == 200) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Low vibration turned ON')),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Failed to communicate with device'),
+              ),
+            );
+          }
+        }
+      },
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 5,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );

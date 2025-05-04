@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'editprofile.dart'; // Import the EditProfilePage
+import 'package:triease_app/pages/home_page.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -61,9 +61,7 @@ class SignInScreen extends StatelessWidget {
                 // Navigate to Edit Profile Page
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const EditProfilePage(),
-                  ),
+                  MaterialPageRoute(builder: (context) => const HomePage()),
                 );
               },
               style: ElevatedButton.styleFrom(

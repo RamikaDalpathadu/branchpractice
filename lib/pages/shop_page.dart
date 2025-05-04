@@ -3,6 +3,7 @@ import 'package:triease_app/pages/controller_page.dart';
 import 'package:triease_app/pages/game_interface.dart';
 import 'package:triease_app/pages/immersive_serenity.dart';
 import 'package:triease_app/pages/music_interface.dart';
+import 'package:triease_app/pages/serenity.dart';
 
 class ShopPage extends StatelessWidget {
   const ShopPage({super.key});
@@ -26,8 +27,8 @@ class ShopPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.all(12),
-              margin: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.all(12),
+              margin: const EdgeInsets.symmetric(horizontal: 25),
               decoration: BoxDecoration(
                 color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(8),
@@ -35,7 +36,7 @@ class ShopPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Search', style: TextStyle(color: Colors.grey)),
+                  const Text('earch', style: TextStyle(color: Colors.grey)),
                   Icon(Icons.search, color: Colors.grey[600]),
                 ],
               ),
@@ -82,7 +83,7 @@ class ShopPage extends StatelessWidget {
               child: ListView(
                 children: [
                   _buildVerticalItem(context, 'Controller', Icons.gamepad),
-                  _buildVerticalItem(context, 'Immersive Serenity', Icons.spa),
+                  _buildVerticalItem(context, 'Immersive Serenity', null),
                   _buildVerticalItem(context, 'Music', Icons.music_note),
                   _buildVerticalItem(context, 'Games', Icons.videogame_asset),
                   _buildVerticalItem(context, ' Care Map', Icons.map),
@@ -115,7 +116,11 @@ class ShopPage extends StatelessWidget {
     );
   }
 
-  Widget _buildVerticalItem(BuildContext context, String title, IconData icon) {
+  Widget _buildVerticalItem(
+    BuildContext context,
+    String title,
+    IconData? icon,
+  ) {
     return GestureDetector(
       onTap: () {
         if (title == 'Controller') {
@@ -127,9 +132,12 @@ class ShopPage extends StatelessWidget {
         if (title.trim() == 'Immersive Serenity') {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const SerenityPage()),
+            MaterialPageRoute(
+              builder: (context) => const ImmersiveSerenityPage(),
+            ),
           );
         }
+
         if (title.trim() == 'Music') {
           Navigator.push(
             context,
@@ -150,7 +158,7 @@ class ShopPage extends StatelessWidget {
           height: 120,
           width: double.infinity,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
+            gradient: const LinearGradient(
               colors: [
                 Color.fromARGB(255, 85, 189, 163), // Start color
                 Color.fromARGB(255, 110, 226, 207), // End color
@@ -160,13 +168,23 @@ class ShopPage extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Row(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, color: Colors.black, size: 30),
+              if (title == 'Immersive Serenity')
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Image.asset(
+                    'assets/images/immersive.png', // Path to the immersive.png image
+                    height: 50,
+                    fit: BoxFit.contain,
+                  ),
+                )
+              else
+                Icon(icon, color: Colors.black, size: 30),
               const SizedBox(
-                width: 10,
-              ), // Add spacing between the icon and text
+                height: 10,
+              ), // Add spacing between the icon/image and text
               Text(
                 title,
                 style: const TextStyle(
