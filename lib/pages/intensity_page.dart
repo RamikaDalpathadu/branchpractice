@@ -210,7 +210,9 @@ class IntensityPage extends StatelessWidget {
       onTap: () async {
         if (title == 'Low') {
           // Send a request to the hardware device to turn on low vibration
-          final response = await http.get(Uri.parse('http://<DEVICE_IP>/low'));
+          final response = await http.get(
+            Uri.parse('http://192.168.8.168/low'),
+          );
           if (response.statusCode == 200) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Low vibration turned ON')),

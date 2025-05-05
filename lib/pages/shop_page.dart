@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:triease_app/pages/controller_page.dart';
 import 'package:triease_app/pages/game_interface.dart';
-import 'package:triease_app/pages/immersive_serenity.dart';
 import 'package:triease_app/pages/music_interface.dart';
 import 'package:triease_app/pages/serenity.dart';
 
@@ -36,7 +35,7 @@ class ShopPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('earch', style: TextStyle(color: Colors.grey)),
+                  const Text('Search', style: TextStyle(color: Colors.grey)),
                   Icon(Icons.search, color: Colors.grey[600]),
                 ],
               ),

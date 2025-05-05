@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:triease_app/components/bottom_nav_bar.dart';
 import 'package:triease_app/pages/settings_page.dart';
 import 'package:triease_app/pages/shop_page.dart';
+import 'package:triease_app/pages/editprofile.dart'; // Import the EditProfilePage
 import 'package:triease_app/widgets/side_bar.dart';
 
 class HomePage extends StatefulWidget {
@@ -51,6 +52,21 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person, color: Colors.black), // Profile icon
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder:
+                      (context) =>
+                          const EditProfilePageStateless(), // Navigate to EditProfilePage
+                ),
+              );
+            },
+          ),
+        ],
       ),
       drawer: const SideBar(),
       bottomNavigationBar: MyBottomNavBar(

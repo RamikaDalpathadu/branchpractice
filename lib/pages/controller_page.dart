@@ -23,12 +23,12 @@ class ControllerPage extends StatelessWidget {
               gradient: LinearGradient(
                 colors: [
                   Color.fromARGB(
-                    150,
-                    164,
-                    224,
-                    209,
+                    149,
+                    219,
+                    228,
+                    225,
                   ), // Semi-transparent overlay
-                  Color.fromARGB(150, 17, 129, 112),
+                  Color.fromARGB(149, 214, 230, 227),
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -41,11 +41,11 @@ class ControllerPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Image.asset(
                     'assets/images/controllergirl.png',
-                    height: 180,
+                    height: 280,
                     fit: BoxFit.contain,
                   ),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 10),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(

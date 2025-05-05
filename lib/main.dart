@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:triease_app/pages/welcomescreen.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:triease_app/pages/home_page.dart'; // Import the HomePage
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(TrieaseApp());
+void main() {
+  runApp(const TrieaseApp());
 }
 
 class TrieaseApp extends StatelessWidget {
@@ -17,7 +14,7 @@ class TrieaseApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Triease App',
       theme: ThemeData(primarySwatch: Colors.teal),
-      home: const WelcomeScreen(), // Set WelcomeScreen as the initial screen
+      home: const HomePage(), // Set HomePage as the initial screen
     );
   }
 }
