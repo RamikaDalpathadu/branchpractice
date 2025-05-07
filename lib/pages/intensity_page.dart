@@ -1,17 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:firebase_database/firebase_database.dart';
 
-// Firebase Realtime Database reference
-final databaseRef = FirebaseDatabase.instance.ref();
+class IntensityPage extends StatefulWidget {
+  const IntensityPage({super.key});
 
-// Function to toggle the motor ON/OFF
-void toggleMotor(bool isOn) {
-  databaseRef.child("motor").set({"status": isOn ? "ON" : "OFF"});
+  @override
+  State<IntensityPage> createState() => _IntensityPageState();
 }
 
-class IntensityPage extends StatelessWidget {
-  const IntensityPage({super.key});
+class _IntensityPageState extends State<IntensityPage> {
+  bool isDeviceOn = false; // Track the state of the switch
+
+  // Function to toggle the device ON/OFF
+  Future<void> toggleDevice(bool isOn) async {
+    final url =
+        isOn
+            ? 'http://192.168.180.41/on' // API endpoint to turn the device ON
+            : 'http://192.168.180.41/off'; // API endpoint to turn the device OFF
+
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(isOn ? 'Device turned ON' : 'Device turned OFF'),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to communicate with device')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error communicating with device')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +83,31 @@ class IntensityPage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ), // Spacing between scrollable items and title
+            // Add the switch
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Device Control:',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  Switch(
+                    value: isDeviceOn,
+                    onChanged: (value) {
+                      setState(() {
+                        isDeviceOn = value;
+                      });
+                      toggleDevice(value); // Call the toggleDevice function
+                    },
+                    activeColor: Colors.green,
+                    inactiveThumbColor: Colors.red,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20), // Spacing between switch and title
             // Title
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -94,46 +144,6 @@ class IntensityPage extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: _buildSquareItem(context, 'High', width: 120),
-                  ),
-                  const SizedBox(height: 40.0),
-
-                  // Add the ON/OFF buttons
-                  Center(
-                    child: Column(
-                      children: [
-                        ElevatedButton(
-                          onPressed:
-                              () => toggleMotor(true), // Turn ON the motor
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 30,
-                              vertical: 15,
-                            ),
-                          ),
-                          child: const Text(
-                            "Turn ON Motor",
-                            style: TextStyle(fontSize: 16, color: Colors.white),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed:
-                              () => toggleMotor(false), // Turn OFF the motor
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 30,
-                              vertical: 15,
-                            ),
-                          ),
-                          child: const Text(
-                            "Turn OFF Motor",
-                            style: TextStyle(fontSize: 16, color: Colors.white),
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
                 ],
               ),
@@ -208,20 +218,33 @@ class IntensityPage extends StatelessWidget {
   }) {
     return GestureDetector(
       onTap: () async {
+        String url = '';
         if (title == 'Low') {
-          // Send a request to the hardware device to turn on low vibration
-          final response = await http.get(
-            Uri.parse('http://192.168.8.168/low'),
-          );
-          if (response.statusCode == 200) {
+          url = 'http://192.168.180.41/low'; // API endpoint for Low intensity
+        } else if (title == 'Medium') {
+          url =
+              'http://192.168.180.41/medium'; // API endpoint for Medium intensity
+        } else if (title == 'High') {
+          url = 'http://192.168.180.41/high'; // API endpoint for High intensity
+        }
+
+        if (url.isNotEmpty) {
+          try {
+            final response = await http.get(Uri.parse(url));
+            if (response.statusCode == 200) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('$title intensity turned ON')),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Failed to communicate with device'),
+                ),
+              );
+            }
+          } catch (e) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Low vibration turned ON')),
-            );
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Failed to communicate with device'),
-              ),
+              const SnackBar(content: Text('Error communicating with device')),
             );
           }
         }
