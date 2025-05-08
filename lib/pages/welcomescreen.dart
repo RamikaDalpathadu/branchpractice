@@ -43,14 +43,14 @@ class WelcomeScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 60),
+                    const SizedBox(height: 30),
                     Image.asset(
-                      'lib/assets/trieasenew.png',
+                      'assets/trieasenew.png',
                       height: screenHeight * 0.15,
                     ),
-                    const SizedBox(height: 60),
+                    const SizedBox(height: 30),
                     Image.asset(
-                      'lib/assets/logonew.png',
+                      'assets/logonew.png',
                       height: screenHeight * 0.35,
                     ),
                     const SizedBox(height: 30),

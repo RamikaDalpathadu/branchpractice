@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:triease_app/pages/home_page.dart';
+import 'package:triease_app/pages/welcomescreen.dart';
 
 void main() {
   runApp(const TrieaseApp());
@@ -12,7 +12,7 @@ class TrieaseApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: const WelcomeScreen(),
     );
   }
 }

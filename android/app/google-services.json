@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "905326358963",
+    "project_id": "triease-96c90",
+    "storage_bucket": "triease-96c90.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905326358963:android:403bd7ad6025dbdbd99bc6",
+        "android_client_info": {
+          "package_name": "com.example.triease_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeJPI6IOvOE4uC5ilzuQfIm8UDSjBOaog"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

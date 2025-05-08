@@ -3,6 +3,7 @@ import 'package:triease_app/components/bottom_nav_bar.dart';
 import 'package:triease_app/pages/settings_page.dart';
 import 'package:triease_app/pages/shop_page.dart';
 import 'package:triease_app/widgets/side_bar.dart';
+import 'package:triease_app/pages/editprofile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,34 +26,38 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 200, 240, 233), // Start color
-              Color.fromARGB(255, 40, 207, 185), // End color
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: IndexedStack(index: selectedIndex, children: _pages),
-      ),
+      backgroundColor: Colors.white,
+      drawer: const SideBar(),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         elevation: 0,
         leading: Builder(
-          builder: (context) {
-            return IconButton(
-              icon: const Icon(Icons.menu, color: Colors.black),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          },
+          builder:
+              (context) => IconButton(
+                icon: const Icon(Icons.menu, color: Color(0xFF54B0A8)),
+                onPressed: () => Scaffold.of(context).openDrawer(),
+              ),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person_outline, color: Color(0xFF54B0A8)),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EditProfilePage(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: IndexedStack(index: selectedIndex, children: _pages),
         ),
       ),
-      drawer: const SideBar(),
       bottomNavigationBar: MyBottomNavBar(
         onTabChange: (index) => navigateBottomBar(index),
       ),
