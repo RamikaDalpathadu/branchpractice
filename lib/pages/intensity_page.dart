@@ -233,7 +233,7 @@ class _IntensityPageState extends State<IntensityPage> {
             final response = await http.get(Uri.parse(url));
             if (response.statusCode == 200) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('$title intensity turned ON')),
+                SnackBar(content: Text('$title intensity activated')),
               );
             } else {
               ScaffoldMessenger.of(context).showSnackBar(

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'comingsoon.dart'; // Import the ComingSoonPage
+import 'package:triease_app/pages/BreathingExercisePage.dart';
+import 'package:triease_app/pages/matchinggame.dart';
+import 'comingsoon.dart';
+import 'puzzlepage.dart'; // Import your PuzzlePage here
 
 void main() {
   runApp(const GamingInterface());
@@ -48,7 +51,7 @@ class GamingInterface extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const ComingSoonPage(),
+                          builder: (context) => const PuzzlePage(),
                         ),
                       );
                     },
@@ -60,7 +63,7 @@ class GamingInterface extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const ComingSoonPage(),
+                          builder: (context) => const BreathingExercisePage(),
                         ),
                       );
                     },
@@ -72,7 +75,7 @@ class GamingInterface extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const ComingSoonPage(),
+                          builder: (context) => const MatchingGamePage(),
                         ),
                       );
                     },

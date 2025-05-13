@@ -9,7 +9,7 @@ class MyBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: 0,
-      onTap: onTabChange,
+      onTap: onTabChange, // Notify parent widget when a tab is clicked
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
         BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),

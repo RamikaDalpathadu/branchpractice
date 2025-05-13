@@ -5,10 +5,50 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Settings Page',
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+    return Scaffold(
+      appBar: AppBar(title: const Text('Settings'), centerTitle: true),
+      body: ListView(
+        children: [
+          ListTile(
+            leading: const Icon(Icons.person),
+            title: const Text('Profile'),
+            onTap: () {
+              // Navigate to Profile Page
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.info),
+            title: const Text('About'),
+            onTap: () {
+              // Navigate to About Page
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.music_note),
+            title: const Text('Music'),
+            onTap: () {
+              // Navigate to Music Settings
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.volume_up),
+            title: const Text('Sounds'),
+            onTap: () {
+              // Navigate to Sound Settings
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Log Out'),
+            onTap: () {
+              // Handle Log Out
+            },
+          ),
+        ],
       ),
     );
   }

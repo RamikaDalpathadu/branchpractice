@@ -14,7 +14,7 @@ class ShopPage extends StatelessWidget {
         gradient: LinearGradient(
           colors: [
             Color.fromARGB(255, 255, 255, 255), // Start color
-            Color.fromARGB(255, 24, 172, 147), // End color
+            Color.fromARGB(255, 128, 209, 196), // End color
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -25,6 +25,7 @@ class ShopPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Search Bar
             Container(
               padding: const EdgeInsets.all(12),
               margin: const EdgeInsets.symmetric(horizontal: 25),
@@ -67,7 +68,7 @@ class ShopPage extends StatelessWidget {
                   _buildSquareItem('Music'),
                   _buildSquareItem('Relax Stories'),
                   _buildSquareItem('Controller'),
-                  _buildSquareItem(' Serenity'),
+                  _buildSquareItem('Serenity'),
                 ],
               ),
             ),
@@ -82,10 +83,10 @@ class ShopPage extends StatelessWidget {
               child: ListView(
                 children: [
                   _buildVerticalItem(context, 'Controller', Icons.gamepad),
-                  _buildVerticalItem(context, 'Immersive Serenity', null),
+                  _buildVerticalItem(context, 'Immersive Serenity', Icons.spa),
                   _buildVerticalItem(context, 'Music', Icons.music_note),
                   _buildVerticalItem(context, 'Games', Icons.videogame_asset),
-                  _buildVerticalItem(context, ' Care Map', Icons.map),
+                  _buildVerticalItem(context, 'Care Map', Icons.map),
                   _buildVerticalItem(context, 'Relaxing Stories', Icons.book),
                 ],
               ),
@@ -102,8 +103,15 @@ class ShopPage extends StatelessWidget {
       child: Container(
         width: 120,
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 13, 153, 139),
+          color: const Color.fromARGB(255, 24, 172, 147), // Teal color
           borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 5), // Shadow below the button
+            ),
+          ],
         ),
         child: Center(
           child: Text(
@@ -149,7 +157,6 @@ class ShopPage extends StatelessWidget {
             MaterialPageRoute(builder: (context) => GamingInterface()),
           );
         }
-        // Add more conditions for other pages if needed
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 10),
@@ -157,37 +164,25 @@ class ShopPage extends StatelessWidget {
           height: 120,
           width: double.infinity,
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [
-                Color.fromARGB(255, 85, 189, 163), // Start color
-                Color.fromARGB(255, 110, 226, 207), // End color
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+            color: const Color.fromARGB(255, 59, 161, 144), // Teal color
             borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 10,
+                offset: const Offset(0, 5), // Shadow below the button
+              ),
+            ],
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              if (title == 'Immersive Serenity')
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Image.asset(
-                    'assets/images/immersive.png', // Path to the immersive.png image
-                    height: 50,
-                    fit: BoxFit.contain,
-                  ),
-                )
-              else
-                Icon(icon, color: Colors.black, size: 30),
-              const SizedBox(
-                height: 10,
-              ), // Add spacing between the icon/image and text
+              Icon(icon, color: Colors.white, size: 30),
+              const SizedBox(height: 10),
               Text(
                 title,
                 style: const TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontSize: 20,
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.bold,

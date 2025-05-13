@@ -47,6 +47,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_svg: ^2.0.7
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -80,7 +81,21 @@ flutter:
       - assets/beach.png
       - assets/rain.png
       - assets/beachcover.png
-
+      - assets/images/puzzle_piece_0.jpg
+      - assets/images/puzzle_piece_1.jpg
+      - assets/images/puzzle_piece_2.jpg
+      - assets/images/puzzle_piece_3.jpg
+      - assets/images/puzzle_piece_4.jpg
+      - assets/images/puzzle_piece_5.jpg    
+      - assets/images/puzzle_piece_6.jpg
+      - assets/images/puzzle_piece_7.jpg
+      - assets/images/puzzle_piece_8.jpg
+      - assets/images/image1.png
+      - assets/images/image2.png
+      - assets/images/image3.png
+      - assets/images/image4.png
+      - assets/images/image5.png
+      - assets/images/image6.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
