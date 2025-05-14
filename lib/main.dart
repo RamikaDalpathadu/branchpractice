@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:triease_app/pages/home_page.dart';
+import 'package:triease_app/pages/welcomescreen.dart'; // Import the HomePage
 
-void main() {
-  runApp(const TrieaseApp());
-}
+void main() => runApp(const TrieaseApp());
 
 class TrieaseApp extends StatelessWidget {
   const TrieaseApp({super.key});
@@ -12,7 +10,9 @@ class TrieaseApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      title: 'TriEase App',
+      theme: ThemeData(primarySwatch: Colors.teal),
+      home: const WelcomeScreen(),
     );
   }
 }

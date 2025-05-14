@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:triease_app/components/bottom_nav_bar.dart';
 import 'package:triease_app/pages/settings_page.dart';
 import 'package:triease_app/pages/shop_page.dart';
+import 'package:triease_app/pages/editprofile.dart'; // Import the EditProfilePage
+import 'package:triease_app/pages/updates.dart';
 import 'package:triease_app/widgets/side_bar.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,17 +21,23 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  final List<Widget> _pages = [const ShopPage(), const SettingsPage()];
+  // Add UpdatePage to the list of pages
+  final List<Widget> _pages = [
+    const ShopPage(),
+    const SettingsPage(),
+    const UpdatePage(), // Add UpdatePage here
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true, // Allows the bottom navigation bar to float
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromARGB(255, 200, 240, 233), // Start color
-              Color.fromARGB(255, 40, 207, 185), // End color
+              Color(0xFF00C6FF), // Modern gradient start color
+              Color(0xFF0072FF), // Modern gradient end color
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -41,6 +48,15 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        title: const Text(
+          "TriEase",
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
+        ),
+        centerTitle: true,
         leading: Builder(
           builder: (context) {
             return IconButton(
@@ -51,10 +67,71 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person, color: Colors.black), // Profile icon
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder:
+                      (context) =>
+                          const EditProfilePageStateless(), // Navigate to EditProfilePage
+                ),
+              );
+            },
+          ),
+        ],
       ),
       drawer: const SideBar(),
-      bottomNavigationBar: MyBottomNavBar(
-        onTabChange: (index) => navigateBottomBar(index),
+      bottomNavigationBar: Container(
+        margin: const EdgeInsets.symmetric(
+          horizontal: 16,
+        ), // Horizontal margin only
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20), // Slightly rounded corners
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.15),
+              blurRadius: 20,
+              offset: const Offset(0, 10), // Shadow below the navigation bar
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(
+            20,
+          ), // Match the container's radius
+          child: BottomNavigationBar(
+            currentIndex: selectedIndex,
+            onTap: navigateBottomBar,
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: const Color.fromARGB(255, 211, 236, 231),
+            selectedItemColor: const Color.fromARGB(
+              255,
+              18,
+              90,
+              78,
+            ), // Modern blue color
+            unselectedItemColor: const Color.fromARGB(255, 76, 187, 168),
+            elevation: 0,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home, size: 28), // Slightly larger icons
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings, size: 28),
+                label: 'Settings',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.update, size: 28),
+                label: 'Updates',
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

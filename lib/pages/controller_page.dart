@@ -8,49 +8,70 @@ class ControllerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Relaxation Controller')),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 164, 224, 209), // Start color
-              Color.fromARGB(255, 17, 129, 112), // End color
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+      body: Stack(
+        children: [
+          // Background Image
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/controllerbg.png', // Path to your background image
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 180), // Spacing between image and title
-
-            const SizedBox(height: 20), // Spacing between image and title
-            // Title
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                'Select the Controlling Feature...',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 30), // Spacing between title and squares
-            // Centered squares
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.all(16.0),
-                children: [
-                  _buildSquareItem(context, 'Intensity Level'),
-                  const SizedBox(height: 25.0), // Add spacing between items
-                  _buildSquareItem(context, 'Vibrating Mode'),
-                  const SizedBox(height: 25.0), // Add spacing between items
-                  _buildSquareItem(context, 'Temperature Adjustment'),
-                  const SizedBox(height: 25.0), // Add spacing between items
-                  _buildSquareItem(context, 'Session Duration'),
+          // Foreground Content
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromARGB(
+                    149,
+                    219,
+                    228,
+                    225,
+                  ), // Semi-transparent overlay
+                  Color.fromARGB(149, 214, 230, 227),
                 ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
             ),
-          ],
-        ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Image.asset(
+                    'assets/images/controllergirl.png',
+                    height: 280,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    'Select the Controlling Feature...',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Expanded(
+                  child: ListView(
+                    padding: const EdgeInsets.all(16.0),
+                    children: [
+                      _buildSquareItem(context, 'Intensity Level'),
+                      const SizedBox(height: 25.0), // Add spacing between items
+                      _buildSquareItem(context, 'Vibrating Mode'),
+                      const SizedBox(height: 25.0), // Add spacing between items
+                      _buildSquareItem(context, 'Temperature Adjustment'),
+                      const SizedBox(height: 25.0), // Add spacing between items
+                      _buildSquareItem(context, 'Session Duration'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -68,8 +89,8 @@ class ControllerPage extends StatelessWidget {
         // Add more conditions for other pages if needed
       },
       child: Container(
-        width: 80, // Adjusted width
-        height: 60, // Adjusted height
+        width: 80,
+        height: 60,
         decoration: BoxDecoration(
           color: const Color.fromARGB(214, 126, 231, 214),
           borderRadius: BorderRadius.circular(10),
@@ -85,7 +106,7 @@ class ControllerPage extends StatelessWidget {
           child: Text(
             title,
             style: const TextStyle(
-              fontSize: 16, // Adjusted font size to fit smaller squares
+              fontSize: 16,
               fontWeight: FontWeight.bold,
               color: Colors.black,
             ),

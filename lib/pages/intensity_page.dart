@@ -1,7 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
-class IntensityPage extends StatelessWidget {
+class IntensityPage extends StatefulWidget {
   const IntensityPage({super.key});
+
+  @override
+  State<IntensityPage> createState() => _IntensityPageState();
+}
+
+class _IntensityPageState extends State<IntensityPage> {
+  bool isDeviceOn = false; // Track the state of the switch
+
+  // Function to toggle the device ON/OFF
+  Future<void> toggleDevice(bool isOn) async {
+    final url =
+        isOn
+            ? 'http://192.168.180.41/on' // API endpoint to turn the device ON
+            : 'http://192.168.180.41/off'; // API endpoint to turn the device OFF
+
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(isOn ? 'Device turned ON' : 'Device turned OFF'),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to communicate with device')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error communicating with device')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +83,31 @@ class IntensityPage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ), // Spacing between scrollable items and title
+            // Add the switch
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Device Control:',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  Switch(
+                    value: isDeviceOn,
+                    onChanged: (value) {
+                      setState(() {
+                        isDeviceOn = value;
+                      });
+                      toggleDevice(value); // Call the toggleDevice function
+                    },
+                    activeColor: Colors.green,
+                    inactiveThumbColor: Colors.red,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20), // Spacing between switch and title
             // Title
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -63,7 +123,7 @@ class IntensityPage extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 children: [
                   // First box: Larger and lighter in color
-                  _buildSquareItem(
+                  _buildNonInteractiveSquareItem(
                     'Adjust the vibration intensity to your comfort. Slide to control the strength for a personalized relaxation experience',
                     width: 300, // Larger width
                     height: 100, // Larger height
@@ -73,17 +133,17 @@ class IntensityPage extends StatelessWidget {
 
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: _buildSquareItem('Low', width: 120),
+                    child: _buildSquareItem(context, 'Low', width: 120),
                   ),
                   const SizedBox(height: 20.0),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: _buildSquareItem('Medium', width: 120),
+                    child: _buildSquareItem(context, 'Medium', width: 120),
                   ),
                   const SizedBox(height: 20.0),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: _buildSquareItem('High', width: 120),
+                    child: _buildSquareItem(context, 'High', width: 120),
                   ),
                 ],
               ),
@@ -124,36 +184,95 @@ class IntensityPage extends StatelessWidget {
     );
   }
 
-  // Helper method to build a square item
-  Widget _buildSquareItem(
+  // Helper method to build a non-interactive square item
+  Widget _buildNonInteractiveSquareItem(
     String title, {
     double width = 80,
     double height = 60,
     Color color = const Color.fromARGB(214, 126, 231, 214),
   }) {
     return Container(
-      width: width, // Customizable width
-      height: height, // Customizable height
+      width: width,
+      height: height,
       decoration: BoxDecoration(
-        color: color, // Customizable color
+        color: color,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 5,
-            offset: const Offset(0, 2),
-          ),
-        ],
       ),
       child: Center(
         child: Text(
           title,
-          style: const TextStyle(
-            fontSize: 16, // Adjusted font size to fit smaller squares
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
           textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 14, color: Colors.black),
+        ),
+      ),
+    );
+  }
+
+  // Helper method to build an interactive square item
+  Widget _buildSquareItem(
+    BuildContext context,
+    String title, {
+    double width = 80,
+    double height = 60,
+    Color color = const Color.fromARGB(214, 126, 231, 214),
+  }) {
+    return GestureDetector(
+      onTap: () async {
+        String url = '';
+        if (title == 'Low') {
+          url = 'http://192.168.180.41/low'; // API endpoint for Low intensity
+        } else if (title == 'Medium') {
+          url =
+              'http://192.168.180.41/medium'; // API endpoint for Medium intensity
+        } else if (title == 'High') {
+          url = 'http://192.168.180.41/high'; // API endpoint for High intensity
+        }
+
+        if (url.isNotEmpty) {
+          try {
+            final response = await http.get(Uri.parse(url));
+            if (response.statusCode == 200) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('$title intensity activated')),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Failed to communicate with device'),
+                ),
+              );
+            }
+          } catch (e) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Error communicating with device')),
+            );
+          }
+        }
+      },
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 5,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );

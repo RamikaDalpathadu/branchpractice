@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:triease_app/pages/BreathingExercisePage.dart';
+import 'package:triease_app/pages/matchinggame.dart';
+import 'comingsoon.dart';
+import 'puzzlepage.dart'; // Import your PuzzlePage here
 
 void main() {
-  runApp(GamingInterface());
+  runApp(const GamingInterface());
 }
 
 class GamingInterface extends StatelessWidget {
@@ -39,13 +43,54 @@ class GamingInterface extends StatelessWidget {
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
-                children: const [
-                  GameButton(icon: Icons.extension, title: 'Puzzle'),
-                  GameButton(icon: Icons.grain, title: 'Breathing Exercises'),
-                  GameButton(icon: Icons.track_changes, title: 'Focus Games'),
+                children: [
+                  GameButton(
+                    icon: Icons.extension,
+                    title: 'Puzzle',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PuzzlePage(),
+                        ),
+                      );
+                    },
+                  ),
+                  GameButton(
+                    icon: Icons.grain,
+                    title: 'Breathing Exercises',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const BreathingExercisePage(),
+                        ),
+                      );
+                    },
+                  ),
+                  GameButton(
+                    icon: Icons.track_changes,
+                    title: 'Focus Games',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MatchingGamePage(),
+                        ),
+                      );
+                    },
+                  ),
                   GameButton(
                     icon: Icons.self_improvement,
                     title: 'Mindfulness',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ComingSoonPage(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -70,15 +115,21 @@ class GamingInterface extends StatelessWidget {
 class GameButton extends StatelessWidget {
   final IconData icon;
   final String title;
+  final VoidCallback onTap; // Add onTap callback
 
-  const GameButton({super.key, required this.icon, required this.title});
+  const GameButton({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.onTap, // Require onTap callback
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(16),
       child: InkWell(
-        onTap: () {},
+        onTap: onTap, // Trigger the onTap callback
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,

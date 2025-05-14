@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:triease_app/pages/controller_page.dart';
 import 'package:triease_app/pages/game_interface.dart';
-import 'package:triease_app/pages/immersive_serenity.dart';
 import 'package:triease_app/pages/music_interface.dart';
+import 'package:triease_app/pages/serenity.dart';
 
 class ShopPage extends StatelessWidget {
   const ShopPage({super.key});
@@ -14,7 +14,7 @@ class ShopPage extends StatelessWidget {
         gradient: LinearGradient(
           colors: [
             Color.fromARGB(255, 255, 255, 255), // Start color
-            Color.fromARGB(255, 24, 172, 147), // End color
+            Color.fromARGB(255, 128, 209, 196), // End color
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -25,9 +25,10 @@ class ShopPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Search Bar
             Container(
-              padding: EdgeInsets.all(12),
-              margin: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.all(12),
+              margin: const EdgeInsets.symmetric(horizontal: 25),
               decoration: BoxDecoration(
                 color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(8),
@@ -35,7 +36,7 @@ class ShopPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Search', style: TextStyle(color: Colors.grey)),
+                  const Text('Search', style: TextStyle(color: Colors.grey)),
                   Icon(Icons.search, color: Colors.grey[600]),
                 ],
               ),
@@ -67,7 +68,7 @@ class ShopPage extends StatelessWidget {
                   _buildSquareItem('Music'),
                   _buildSquareItem('Relax Stories'),
                   _buildSquareItem('Controller'),
-                  _buildSquareItem(' Serenity'),
+                  _buildSquareItem('Serenity'),
                 ],
               ),
             ),
@@ -85,7 +86,7 @@ class ShopPage extends StatelessWidget {
                   _buildVerticalItem(context, 'Immersive Serenity', Icons.spa),
                   _buildVerticalItem(context, 'Music', Icons.music_note),
                   _buildVerticalItem(context, 'Games', Icons.videogame_asset),
-                  _buildVerticalItem(context, ' Care Map', Icons.map),
+                  _buildVerticalItem(context, 'Care Map', Icons.map),
                   _buildVerticalItem(context, 'Relaxing Stories', Icons.book),
                 ],
               ),
@@ -102,8 +103,15 @@ class ShopPage extends StatelessWidget {
       child: Container(
         width: 120,
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 13, 153, 139),
+          color: const Color.fromARGB(255, 24, 172, 147), // Teal color
           borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 5), // Shadow below the button
+            ),
+          ],
         ),
         child: Center(
           child: Text(
@@ -115,7 +123,11 @@ class ShopPage extends StatelessWidget {
     );
   }
 
-  Widget _buildVerticalItem(BuildContext context, String title, IconData icon) {
+  Widget _buildVerticalItem(
+    BuildContext context,
+    String title,
+    IconData? icon,
+  ) {
     return GestureDetector(
       onTap: () {
         if (title == 'Controller') {
@@ -127,9 +139,12 @@ class ShopPage extends StatelessWidget {
         if (title.trim() == 'Immersive Serenity') {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const SerenityPage()),
+            MaterialPageRoute(
+              builder: (context) => const ImmersiveSerenityPage(),
+            ),
           );
         }
+
         if (title.trim() == 'Music') {
           Navigator.push(
             context,
@@ -142,7 +157,6 @@ class ShopPage extends StatelessWidget {
             MaterialPageRoute(builder: (context) => GamingInterface()),
           );
         }
-        // Add more conditions for other pages if needed
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 10),
@@ -150,27 +164,25 @@ class ShopPage extends StatelessWidget {
           height: 120,
           width: double.infinity,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromARGB(255, 85, 189, 163), // Start color
-                Color.fromARGB(255, 110, 226, 207), // End color
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+            color: const Color.fromARGB(255, 59, 161, 144), // Teal color
             borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 10,
+                offset: const Offset(0, 5), // Shadow below the button
+              ),
+            ],
           ),
-          child: Row(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, color: Colors.black, size: 30),
-              const SizedBox(
-                width: 10,
-              ), // Add spacing between the icon and text
+              Icon(icon, color: Colors.white, size: 30),
+              const SizedBox(height: 10),
               Text(
                 title,
                 style: const TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontSize: 20,
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.bold,
