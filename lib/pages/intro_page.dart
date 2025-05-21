@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:triease_app/pages/home_page.dart';
+import 'package:triease_app/pages/Home/home_page.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});

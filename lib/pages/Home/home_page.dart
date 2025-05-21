@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:triease_app/components/bottom_nav_bar.dart';
-import 'package:triease_app/pages/settings_page.dart';
+// Unused import removed
 import 'package:triease_app/pages/shop_page.dart';
 import 'package:triease_app/services/auth.dart';
 import 'package:triease_app/widgets/side_bar.dart';
@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   final List<Widget> _pages = [const ShopPage(), const HomePage()];
+  // ignore: unused_field
   final AuthServices _auth = AuthServices();
   @override
   Widget build(BuildContext context) {

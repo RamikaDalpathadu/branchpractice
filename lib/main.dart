@@ -1,7 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:triease_app/pages/home_page.dart';
+import 'package:provider/provider.dart';
+import 'package:triease_app/models/UserModel.dart';
+import 'package:triease_app/pages/Home/wrapper.dart';
+import 'package:triease_app/services/auth.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const TrieaseApp());
 }
 
@@ -10,9 +16,13 @@ class TrieaseApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+    return StreamProvider<Usermodel?>.value(
+      value: AuthServices().User,
+      initialData: null,
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Wrapper(),
+      ),
     );
   }
 }

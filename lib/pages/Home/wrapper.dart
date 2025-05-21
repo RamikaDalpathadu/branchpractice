@@ -12,7 +12,7 @@ class Wrapper extends StatelessWidget {
     return MaterialApp(
       home: Builder(
         builder: (context) {
-          final user = Provider.of<UserModel?>(context);
+          final user = Provider.of<Usermodel?>(context);
           if (user == null) {
             return Authenticate();
           } else {
