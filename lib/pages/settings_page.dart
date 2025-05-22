@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:triease_app/pages/editprofile.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -13,7 +14,13 @@ class SettingsPage extends StatelessWidget {
             leading: const Icon(Icons.person),
             title: const Text('Profile'),
             onTap: () {
-              // Navigate to Profile Page
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EditProfilePage(),
+                ),
+              );
             },
           ),
           const Divider(),

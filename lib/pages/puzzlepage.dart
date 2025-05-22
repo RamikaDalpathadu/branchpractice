@@ -62,11 +62,13 @@ class _PuzzlePageState extends State<PuzzlePage> {
               itemBuilder: (context, index) {
                 final pieceIndex = currentOrder[index];
                 return DragTarget<int>(
-                  onAccept: (data) {
+                  onAcceptWithDetails: (details) {
                     setState(() {
-                      final draggedIndex = currentOrder.indexOf(data);
+                      final draggedIndex = currentOrder.indexOf(
+                        details.data,
+                      ); // Access 'data' from DragTargetDetails
                       currentOrder[draggedIndex] = currentOrder[index];
-                      currentOrder[index] = data;
+                      currentOrder[index] = details.data;
                     });
 
                     if (_isPuzzleSolved()) {

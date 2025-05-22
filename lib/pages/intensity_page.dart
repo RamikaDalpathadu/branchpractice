@@ -15,8 +15,8 @@ class _IntensityPageState extends State<IntensityPage> {
   Future<void> toggleDevice(bool isOn) async {
     final url =
         isOn
-            ? 'http://192.168.180.41/on' // API endpoint to turn the device ON
-            : 'http://192.168.180.41/off'; // API endpoint to turn the device OFF
+            ? 'http://192.168.167.41/on' // API endpoint to turn the device ON
+            : 'http://192.168.167.41/off'; // API endpoint to turn the device OFF
 
     try {
       final response = await http.get(Uri.parse(url));
@@ -220,12 +220,12 @@ class _IntensityPageState extends State<IntensityPage> {
       onTap: () async {
         String url = '';
         if (title == 'Low') {
-          url = 'http://192.168.180.41/low'; // API endpoint for Low intensity
+          url = 'http://192.168.167.41/low'; // API endpoint for Low intensity
         } else if (title == 'Medium') {
           url =
-              'http://192.168.180.41/medium'; // API endpoint for Medium intensity
+              'http://192.168.167.41/medium'; // API endpoint for Medium intensity
         } else if (title == 'High') {
-          url = 'http://192.168.180.41/high'; // API endpoint for High intensity
+          url = 'http://192.168.167.41/high'; // API endpoint for High intensity
         }
 
         if (url.isNotEmpty) {

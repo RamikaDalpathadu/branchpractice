@@ -96,6 +96,10 @@ flutter:
       - assets/images/image4.png
       - assets/images/image5.png
       - assets/images/image6.png
+      - assets/images/robot.png
+      - assets/aromas/
+
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

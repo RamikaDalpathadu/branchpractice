@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:triease_app/pages/BreathingExercisePage.dart';
+import 'package:triease_app/pages/LeafCatcherGame.dart';
 import 'package:triease_app/pages/matchinggame.dart';
-import 'comingsoon.dart';
 import 'puzzlepage.dart'; // Import your PuzzlePage here
 
 void main() {
@@ -81,13 +81,13 @@ class GamingInterface extends StatelessWidget {
                     },
                   ),
                   GameButton(
-                    icon: Icons.self_improvement,
-                    title: 'Mindfulness',
+                    icon: Icons.eco,
+                    title: 'Leafy Catcher',
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const ComingSoonPage(),
+                          builder: (context) => LeafCatcherGame(),
                         ),
                       );
                     },

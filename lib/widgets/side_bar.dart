@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:triease_app/pages/aboutpage.dart';
+import 'package:triease_app/pages/editprofile.dart';
+import 'package:triease_app/pages/settings_page.dart'; // Add this import
 
 class SideBar extends StatelessWidget {
   const SideBar({super.key});
@@ -44,6 +47,12 @@ class SideBar extends StatelessWidget {
                     ),
                     onTap: () {
                       Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const EditProfilePage(),
+                        ),
+                      );
                     },
                   ),
                   ListTile(
@@ -54,6 +63,12 @@ class SideBar extends StatelessWidget {
                     ),
                     onTap: () {
                       Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AboutPage(),
+                        ),
+                      );
                     },
                   ),
                   ListTile(
@@ -64,6 +79,12 @@ class SideBar extends StatelessWidget {
                     ),
                     onTap: () {
                       Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SettingsPage(),
+                        ),
+                      );
                     },
                   ),
                   const SizedBox(
